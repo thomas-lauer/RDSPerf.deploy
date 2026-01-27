@@ -2,7 +2,8 @@
 
 Diese Anwendung misst Performance Counter in einer Benutzer-Session auf einem Terminalserver (RDS). Die Messung läuft live im 5‑Sekunden‑Intervall (konfigurierbar) und verwendet sprachunabhängige Counter-Namen, indem sie die englischen Counter-Bezeichnungen automatisch auf die lokal installierte Sprache abbildet.
 
-<img width="1111" height="621" alt="image" src="https://github.com/user-attachments/assets/27d91eef-f8aa-4652-a309-be8f78c014b5" />
+<img width="1106" height="615" alt="image" src="https://github.com/user-attachments/assets/1252e5a8-1aa9-4ca6-89c4-1fb5eda6327a" />
+
 
 
 ## Features
@@ -53,4 +54,5 @@ Beispiel:
 
 - Einige Counter liefern beim ersten Abruf noch 0/keinen Wert. Nach dem zweiten Intervall sind die Werte korrekt.
 - Falls ein Counter nicht existiert (z. B. RemoteFX nicht installiert), wird ein Fehlerstatus in der Oberfläche angezeigt.
+
 
