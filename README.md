@@ -1,4 +1,8 @@
-# RDS Performance Monitor (WinForms, .NET Framework 4.8)
+# Download unter folgendem Link  
+[DOWNLOAD](https://it-s.de/download)  
+  
+  
+# RDS Performance Monitor (.NET Framework 4.8)
 
 Diese Anwendung misst Performance Counter in einer Benutzer-Session auf einem Terminalserver (RDS). Die Messung läuft live im 5‑Sekunden‑Intervall (konfigurierbar) und verwendet sprachunabhängige Counter-Namen, indem sie die englischen Counter-Bezeichnungen automatisch auf die lokal installierte Sprache abbildet.
 
@@ -54,5 +58,6 @@ Beispiel:
 
 - Einige Counter liefern beim ersten Abruf noch 0/keinen Wert. Nach dem zweiten Intervall sind die Werte korrekt.
 - Falls ein Counter nicht existiert (z. B. RemoteFX nicht installiert), wird ein Fehlerstatus in der Oberfläche angezeigt.
+
 
 
