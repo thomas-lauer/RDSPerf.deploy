@@ -26,17 +26,62 @@ Zusätzlich wird bei jeder Messung automatisch eine CSV-Zeile in logs/rdsperf-va
 - Live-Ansicht der Messwerte in einer WinForms-Oberfläche.
 - CSV-Export aller Messwerte seit Start der Anwendung über die Oberfläche.
 
+## Architektur
+
+### 1) GUI-Modus (ohne Parameter)
+
+- Startet die WinForms-Oberfläche.
+- Zeigt die Versionsnummer 3.1 im Fenstertitel und in der Statusanzeige.
+- Ermittelt die **aktuelle** Session (`SessionInfo.GetCurrent`).
+- Lädt `config.json`, ersetzt Session-Platzhalter und zeigt Live-Werte an.
+- Schreibt bei jeder Prüfung automatisch eine CSV-Zeile nach `logs/rdsperf-values-YYYYMMDD.csv`.
+
+### 2) Console-Modus (`-c`)
+
+- Lädt `config.json` und startet den `RdsLoggingMonitor`.
+- Ermittelt pro Intervall alle **aktiven** RDS-Sessions via `WTSEnumerateSessions`.
+- Für jede aktive Session werden alle konfigurierten Counter gelesen und per NLog protokolliert.
+- Beenden per `STRG+C`.
+
+### 3) Service-Modus
+
+- `-s`: installiert den Windows Service `RdsPerfMonitorService` und startet ihn.
+- Der Service wird mit Parameter `--service` gestartet.
+- `-u`: stoppt und entfernt den Service.
+
 ## Voraussetzungen
 
-- Windows Server/Windows 10+ mit installierten Performance Countern.
-- .NET Framework 4.8.
-- Ausführung in der gewünschten Benutzer-Session (z. B. im RDS User Context).
+- Windows (RDS-/Terminalserver-Szenario empfohlen)
+- .NET Framework 4.8
+- Verfügbare Performance Counter auf dem Zielsystem
+- Für `-s` und `-u`: Administratorrechte
 
-## Start
+## Startparameter
 
-1. `RdsPerfMonitor.exe` zusammen mit `config.json` im selben Ordner ablegen.
-2. Anwendung starten – die aktuelle Session wird automatisch erkannt.
-3. Werte werden alle `intervalSeconds` Sekunden aktualisiert.
+```bash
+RdsPerfMonitor.exe -c   # Console-Betrieb
+RdsPerfMonitor.exe -s   # Service installieren + starten
+RdsPerfMonitor.exe -u   # Service stoppen + deinstallieren
+RdsPerfMonitor.exe      # GUI-Betrieb (Standard)
+```
+
+## Logging mit NLog und CSV
+
+Die NLog-Konfiguration liegt in `NLog.config`.
+
+Standardmäßig:
+
+- Datei-Log unter: `logs/rdsperf-YYYY-MM-DD.log`
+- CSV-Messwerte unter: `logs/rdsperf-values-YYYYMMDD.csv`
+- Console-Log aktiv
+- Mindestlevel: `Info`
+- tägliche Archivierung, 30 Archive
+
+Beispiel Logzeile:
+
+```text
+2026-01-10 08:15:00.1234|INFO|SessionId=3; SessionName=RDP-Tcp#0; Counter=\Terminal Services\Active Sessions; Value=2.00; Status=OK
+```
 
 ## Sprache der Performance Counter
 
@@ -54,12 +99,6 @@ Beispiel:
 ```
 \\RemoteFX Graphics({sessionName})\\Frame Quality
 ```
-
-## Dateien
-
-- `config.json`: Konfiguration für Intervall und Counter.
-- `config_json.md`: Dokumentation der Konfiguration.
-- `RdsPerfMonitor.exe`: Anwendung.
 
 ## Hinweise
 
