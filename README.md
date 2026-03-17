@@ -13,7 +13,8 @@ Die Protokollierung erfolgt über NLog und wird über NLog.config gesteuert.
 
 Zusätzlich wird bei jeder Messung automatisch eine CSV-Zeile in logs/rdsperf-values-YYYYMMDD.csv geschrieben (GUI und Background-Modi).
 
-<img width="1106" height="615" alt="image" src="https://github.com/user-attachments/assets/1252e5a8-1aa9-4ca6-89c4-1fb5eda6327a" />
+<img width="1101" height="614" alt="image" src="https://github.com/user-attachments/assets/5e97d67e-aeee-4d5d-bbf8-9a987c8d4d59" />
+
 
 
 
