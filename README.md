@@ -4,7 +4,14 @@
   
 # RDS Performance Monitor (.NET Framework 4.8)
 
-Diese Anwendung misst Performance Counter in einer Benutzer-Session auf einem Terminalserver (RDS). Die Messung läuft live im 5‑Sekunden‑Intervall (konfigurierbar) und verwendet sprachunabhängige Counter-Namen, indem sie die englischen Counter-Bezeichnungen automatisch auf die lokal installierte Sprache abbildet.
+RDSPerf überwacht Windows Performance Counter im Kontext von Remote Desktop Services (RDS). Aktuelle Version: 3.1. Die Anwendung unterstützt drei Betriebsarten:
+
+GUI (Standard ohne Parameter): Live-Ansicht für die aktuelle Session (ohne manuellen CSV-Button).
+Console (-c): zyklische Erfassung und Protokollierung aller aktiven RDS-Sessions.
+Windows Service (-s, -u): Installation/Start bzw. Deinstallation des Services, der im Hintergrund alle aktiven Sessions überwacht.
+Die Protokollierung erfolgt über NLog und wird über NLog.config gesteuert.
+
+Zusätzlich wird bei jeder Messung automatisch eine CSV-Zeile in logs/rdsperf-values-YYYYMMDD.csv geschrieben (GUI und Background-Modi).
 
 <img width="1106" height="615" alt="image" src="https://github.com/user-attachments/assets/1252e5a8-1aa9-4ca6-89c4-1fb5eda6327a" />
 
